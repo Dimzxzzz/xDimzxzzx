@@ -3,7 +3,7 @@ const { useMultiFileAuthState } = require('./auth/multi-file-auth-state')
 const { useSingleFileAuthState } = require('./auth/single-file-auth-state')
 const { proto } = require('./protobuf/WAProto')
 const jidNormalizedUser = require("./utils/jid")
-const { jidDecode, MessageRetryMap, generateForwardMessageContent, fetchLatestWaWebVersion, getAggregateVotesInPollMessage, extractMessageContent, delay} = require('./utils/reyydev');
+const { jidDecode, MessageRetryMap, generateForwardMessageContent, fetchLatestWaWebVersion, getAggregateVotesInPollMessage, extractMessageContent, makeCacheableSignalKeyStore, delay} = require('./utils/reyydev');
 const { fetchLatestBaileysVersion } = require('./version')
 const { downloadMediaMessage: downloadContentFromMessage } = require('./utils/media')
 const { generateMessageID } = require('./utils/messages')
@@ -108,6 +108,7 @@ module.exports = {
   ReconnectMode,
   WAContextInfo,
   proto,
+  makeCacheableSignalKeyStore,
   WAGroupMetadata,
   ProxyAgent,
   waChatKey,
