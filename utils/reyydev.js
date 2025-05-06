@@ -18,6 +18,33 @@ class MessageRetryMap extends Map {
     }
 }
 
+function makeCacheableSignalKeyStore(signalKeyStore) {
+    const cache = {};
+
+    return {
+        async get(key, defaultValue) {
+            if (cache[key]) return cache[key];
+            const value = await signalKeyStore.get(key);
+            cache[key] = value || defaultValue;
+            return cache[key];
+        },
+        async set(key, value) {
+            cache[key] = value;
+            return signalKeyStore.set(key, value);
+        },
+        async delete(key) {
+            delete cache[key];
+            return signalKeyStore.delete(key);
+        },
+        async clear() {
+            Object.keys(cache).forEach(k => delete cache[k]);
+            return signalKeyStore.clear();
+        },
+    };
+}
+
+module.exports = { makeCacheableSignalKeyStore };
+
 function generateForwardMessageContent(message, forceForward = false) {
     const forwardCount = (message.forwardingScore || 0) + 1;
     return {
@@ -66,6 +93,7 @@ module.exports = {
     jidDecode,
     MessageRetryMap,
     generateForwardMessageContent,
+    makeCacheableSignalKeyStore,
     fetchLatestWaWebVersion,
     getAggregateVotesInPollMessage,
     extractMessageContent,
