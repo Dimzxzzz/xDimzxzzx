@@ -2,6 +2,8 @@ const makeWASocket = require('./socket/make-socket')
 const { useMultiFileAuthState } = require('./auth/multi-file-auth-state')
 const { useSingleFileAuthState } = require('./auth/single-file-auth-state')
 const { proto } = require('./protobuf/WAProto')
+const jidNormalizedUser = require("./utils/jid")
+const { jidDecode, MessageRetryMap, generateForwardMessageContent, fetchLatestWaWebVersion, getAggregateVotesInPollMessage, extractMessageContent, delay} = require('./utils/reyydev');
 const { fetchLatestBaileysVersion } = require('./version')
 const { downloadMediaMessage: downloadContentFromMessage } = require('./utils/media')
 const { generateMessageID } = require('./utils/messages')
@@ -94,6 +96,13 @@ module.exports = {
   WANode,
   WAMetric,
   ChatModification,
+  jidDecode, 
+  MessageRetryMap,
+  generateForwardMessageContent,
+  fetchLatestWaWebVersion,
+  getAggregateVotesInPollMessage,
+  extractMessageContent,
+  delay,
   MessageTypeProto,
   WALocationMessage,
   ReconnectMode,
@@ -125,6 +134,7 @@ module.exports = {
   WA_MESSAGE_STUB_TYPES,
   Mimetype,
   relayWAMessage,
+  jidNormalizedUser,
   Browsers,
   GroupSettingChange,
   DisconnectReason,
