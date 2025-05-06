@@ -1,0 +1,3 @@
+const DEFAULT_TIMEOUT_MS = 60000
+
+module.exports = { DEFAULT_TIMEOUT_MS }
